@@ -1,0 +1,22 @@
+@import url('simplelightbox/dist/simple-lightbox.min.css');
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.gallery .gallery-item {
+  transition: transform 0.3s ease-out;
+  flex-basis: 360px;
+}
+
+.gallery .gallery-item:hover {
+  transform: scale(1.05);
+}
+
+
+.sl-overlay {
+  background-color: rgba(46, 47, 66, 0.8);
+}
