@@ -1,0 +1,2 @@
+import"./assets/modulepreload-polyfill-3cfb730f.js";/* empty css                      */const a=i=>e=>{e.preventDefault();const{elements:s}=e.target;let r=!1;const o={};for(const l of i)for(const t of s)if(t.name===l.name){const n=t.value.trim();o[t.name]=n,l.required&&!n&&(r=!0)}r?alert("All form fields must be filled in"):(e.target.reset(),console.log(o))},m=document.querySelector(".login-form"),f=[{name:"email",required:!0},{name:"password",required:!0}];m.addEventListener("submit",a(f));
+//# sourceMappingURL=commonHelpers2.js.map
