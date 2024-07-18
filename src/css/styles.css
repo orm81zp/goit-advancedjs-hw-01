@@ -83,7 +83,19 @@ a:focus {
   border: 1px solid var(--primary-hover);
 }
 
-nav ul {
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+header nav ul {
   display: flex;
   gap: 8px;
+}
+
+header nav ul li a.active {
+  color: var(--primary);
+  font-weight: 500;
 }

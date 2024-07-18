@@ -12,21 +12,24 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <section>
-      <div class="container">
-        <form class="feedback-form" autocomplete="off">
-          <label>
-            Email
-            <input class="field" type="email" name="email" autofocus />
-          </label>
-          <label>
-            Message
-            <textarea class="field" name="message" rows="8"></textarea>
-          </label>
-          <button class="button" type="submit">Submit</button>
-        </form>
-      </div>
-    </section>
+    <load ="partials/header.html" />
+    <main>
+      <section>
+        <div class="container">
+          <form class="feedback-form" autocomplete="off">
+            <label>
+              Email
+              <input class="field" type="email" name="email" autofocus />
+            </label>
+            <label>
+              Message
+              <textarea class="field" name="message" rows="8"></textarea>
+            </label>
+            <button class="button" type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
     <script type="module" src="./js/2-form.js"></script>
   </body>
 </html>
