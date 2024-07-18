@@ -1,33 +1,69 @@
-const onSubmitHandler = fields => event => {
-  event.preventDefault();
-  const { elements } = event.target;
-  let isRequiredError = false;
-  const data = {};
+'use strict';
+const formData = {
+  email: '',
+  message: '',
+};
 
-  for (const field of fields) {
+const LOCAL_STORAGE_KEY = 'feedback-form-state';
+
+const getStoredData = (keyname = LOCAL_STORAGE_KEY) => {
+  try {
+    const storedFormData = JSON.parse(localStorage.getItem(keyname)) || {};
+    return storedFormData;
+  } catch (err) {
+    return {};
+  }
+};
+
+const isValidForm = formData => {
+  for (const fieldName of Object.keys(formData)) {
+    if (!formData[fieldName]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const preFillForm = (formElement, formData) => {
+  if (formElement) {
+    const elements = formElement.elements;
+    const storedFormData = getStoredData();
+
     for (const element of elements) {
-      if (element.name === field.name) {
-        const formattedValue = element.value.trim();
-        data[element.name] = formattedValue;
-
-        if (field.required && !formattedValue) {
-          isRequiredError = true;
+      if (Object.keys(formData).includes(element.name)) {
+        const storedValue = storedFormData[element.name] || '';
+        if (storedValue) {
+          element.value = storedValue;
+          formData[element.name] = storedValue;
         }
       }
     }
   }
+};
 
-  if (isRequiredError) {
-    alert('All form fields must be filled in');
+const onSubmitHandler = formData => event => {
+  event.preventDefault();
+  if (!isValidForm(formData)) {
+    alert('Fill please all fields');
   } else {
+    console.log(formData);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
     event.target.reset();
-    console.log(data);
   }
 };
 
-const formEl = document.querySelector('.login-form');
-const fields = [
-  { name: 'email', required: true },
-  { name: 'password', required: true },
-];
-formEl.addEventListener('submit', onSubmitHandler(fields));
+const onInputHandler = formData => event => {
+  const storedFormData = getStoredData();
+  if (Object.keys(formData).includes(event.target.name)) {
+    storedFormData[event.target.name] = event.target.value;
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storedFormData));
+    formData[event.target.name] = event.target.value;
+  }
+};
+
+const feedbackForm = document.querySelector('.feedback-form');
+preFillForm(feedbackForm, formData);
+
+feedbackForm.addEventListener('input', onInputHandler(formData));
+feedbackForm.addEventListener('submit', onSubmitHandler(formData));
