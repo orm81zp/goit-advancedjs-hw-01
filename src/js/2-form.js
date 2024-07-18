@@ -15,6 +15,10 @@ const getStoredData = (keyname = LOCAL_STORAGE_KEY) => {
   }
 };
 
+const storeData = (data, keyname = LOCAL_STORAGE_KEY) => {
+  localStorage.setItem(keyname, JSON.stringify(data));
+};
+
 const isValidForm = formData => {
   for (const fieldName of Object.keys(formData)) {
     if (!formData[fieldName]) {
@@ -55,10 +59,13 @@ const onSubmitHandler = formData => event => {
 
 const onInputHandler = formData => event => {
   const storedFormData = getStoredData();
-  if (Object.keys(formData).includes(event.target.name)) {
-    storedFormData[event.target.name] = event.target.value;
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storedFormData));
-    formData[event.target.name] = event.target.value;
+  const { name, value } = event.target;
+  const formattedValue = value.trim();
+
+  if (Object.keys(formData).includes(name)) {
+    storedFormData[name] = formattedValue;
+    formData[name] = formattedValue;
+    storeData(storedFormData);
   }
 };
 
